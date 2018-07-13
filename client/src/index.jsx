@@ -12,7 +12,7 @@ class App extends React.Component {
       repos: [],
       repoNames: []
     }
-    this.url = `http://localhost:${process.env.PORT || 1128}/repos`
+    this.url = `${process.env.URL}/repos`
   }
 
   componentDidMount() {
