@@ -1,10 +1,29 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const github = require('../helpers/github').getReposByUsername;
+const saveGoose = require('../database/index').save;
+
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded'}));
+
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
+  github(req.body.term, (err, resp, body) => {
+    if (err) throw err;
+    let data = JSON.parse(resp.body);
+    data.forEach((repo) => {
+      saveGoose(repo, (err, repo) => {
+        console.log(repo);
+      });
+    });
+    res.writeHead(201);
+    res.end('completed');
+  });
+  
+  
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
