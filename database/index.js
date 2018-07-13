@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/fetcher', { useMongoClient: true });
 
 let repoSchema = mongoose.Schema({
-  name: String,
-  full_name: String,
+  name: {type: String, unique: true},
+  owner: String,
   description: String,
   url: String,
   forksCount: Number,
@@ -16,7 +16,7 @@ let Repo = mongoose.model('Repo', repoSchema);
 let save = (repoData, cb) => {
   let repo = new Repo({
     name: repoData.name,
-    full_name: repoData.full_name,
+    owner: repoData.owner.login,
     description: repoData.description,
     url: repoData.html_url,
     forksCount: repoData.forks_count,

@@ -20,8 +20,13 @@ app.post('/repos', function (req, res) {
         if (err) throw err;
         results.push(repo._doc);
         if (results.length === data.length) {
-          res.writeHead(201);
-          res.end(JSON.stringify(results));
+          console.log('all repos saved to db');
+          mongoose.get((err, docs) => {
+            if (err) throw err;
+            let results = docs.slice(0, 25);
+            res.writeHead(201);
+            res.end(JSON.stringify(results));
+          });
         }
       });
     });

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import './style.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class App extends React.Component {
     $.get('http://localhost:1128/repos', (resp) => {
       let results = JSON.parse(resp);
       let newReps = this.state.repos;
-      newReps.push(results);
-      this.setState({repos: results});
+      newReps.push(...results);
+      this.setState({repos: [...newReps]});
     });
   }
 
@@ -26,9 +27,10 @@ class App extends React.Component {
     $.post('http://localhost:1128/repos', {
       term: term
     }, (resp) => {
+      console.log(this);
       let results = JSON.parse(resp);
       let newReps = this.state.repos;
-      newReps.push(results);
+      newReps.push(...results);
       this.setState({repos: newReps});
     });
   }
