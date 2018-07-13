@@ -12,10 +12,24 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    $.get('http://localhost:1128/repos', (resp) => {
+      let results = JSON.parse(resp);
+      let newReps = this.state.repos;
+      newReps.push(results);
+      this.setState({repos: results});
+    });
+  }
+
   search (term) {
     console.log(`${term} was searched`);
-    $.post('http://127.0.0.1:1128/repos', {
+    $.post('http://localhost:1128/repos', {
       term: term
+    }, (resp) => {
+      let results = JSON.parse(resp);
+      let newReps = this.state.repos;
+      newReps.push(results);
+      this.setState({repos: newReps});
     });
   }
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const github = require('../helpers/github').getReposByUsername;
-const saveGoose = require('../database/index').save;
+const mongoose = require('../database/index');
 
 let app = express();
 
@@ -14,24 +14,27 @@ app.post('/repos', function (req, res) {
   github(req.body.term, (err, resp, body) => {
     if (err) throw err;
     let data = JSON.parse(resp.body);
+    let results = [];
     data.forEach((repo) => {
-      saveGoose(repo, (err, repo) => {
-        console.log(repo);
+      mongoose.save(repo, (err, repo) => {
+        if (err) throw err;
+        results.push(repo._doc);
+        if (results.length === data.length) {
+          res.writeHead(201);
+          res.end(JSON.stringify(results));
+        }
       });
     });
-    res.writeHead(201);
-    res.end('completed');
   });
-  
-  
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  mongoose.get((err, docs) => {
+    if (err) throw err;
+    let results = docs.slice(0, 25);
+    res.writeHead(200);
+    res.end(JSON.stringify(results));
+  });
 });
 
 let port = 1128;

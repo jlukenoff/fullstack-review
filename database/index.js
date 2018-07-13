@@ -14,7 +14,6 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (repoData, cb) => {
-  console.log(repoData);
   let repo = new Repo({
     name: repoData.name,
     full_name: repoData.full_name,
@@ -28,4 +27,9 @@ let save = (repoData, cb) => {
   repo.save(cb);
 }
 
+let get = (cb) => {
+  Repo.find().sort('-forksCount').exec(cb);
+}
+
 module.exports.save = save;
+module.exports.get = get;
