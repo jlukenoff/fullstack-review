@@ -12,10 +12,11 @@ class App extends React.Component {
       repos: [],
       repoNames: []
     }
+    this.url = `http://localhost:${process.env.PORT || 1128}/repos`
   }
 
   componentDidMount() {
-    $.get('http://localhost:1128/repos', (resp) => {
+    $.get(this.url, (resp) => {
       let results = JSON.parse(resp);
       let newReps = this.state.repos;
       let newNames = this.state.repoNames;
@@ -27,7 +28,7 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    $.post('http://localhost:1128/repos', {
+    $.post(this.url, {
       term: term
     }, (resp) => {
       let newReps = this.state.repos;
