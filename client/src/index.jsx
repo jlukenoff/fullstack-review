@@ -9,7 +9,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: []
+      repos: [],
+      repoNames: []
     }
   }
 
@@ -17,6 +18,8 @@ class App extends React.Component {
     $.get('http://localhost:1128/repos', (resp) => {
       let results = JSON.parse(resp);
       let newReps = this.state.repos;
+      let newNames = this.state.repoNames;
+      results.forEach(repo => newNames.push(repo.name));
       newReps.push(...results);
       this.setState({repos: [...newReps]});
     });
@@ -27,9 +30,8 @@ class App extends React.Component {
     $.post('http://localhost:1128/repos', {
       term: term
     }, (resp) => {
-      console.log(this);
-      let results = JSON.parse(resp);
       let newReps = this.state.repos;
+      let results = JSON.parse(resp).filter(repo => this.state.repoNames.indexOf(repo.name) !== 0);
       newReps.push(...results);
       this.setState({repos: newReps});
     });
