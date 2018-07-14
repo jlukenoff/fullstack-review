@@ -43,9 +43,7 @@ app.get('/repos', function (req, res) {
   });
 });
 
-let port = process.env.PORT ;
-
 app.listen(1157, function() {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port 1157`);
 });
 
