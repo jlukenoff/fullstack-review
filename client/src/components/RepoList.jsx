@@ -14,10 +14,10 @@ const RepoList = (props) => (
         </tr>
       {props.repos.map(repo => (
         <tr key={repo.name}>
-          <td><a href={repo.url}>{repo.name}</a></td>
+          <td className="reponame"><a href={repo.url}>{repo.name}</a></td>
           <td>{repo.forksCount}</td>
-          <td>{repo.owner}</td>
-          <td>{repo.description}</td>
+          <td><img src={repo.avatar_url} alt="user photo" className="avatar"/><br/>{repo.owner}</td>
+          <td>{repo.description || <i>No desciption provided</i>}</td>
           <td>{repo.defaultBranch}</td>
           {/* <td><img src={repo.avatar_url} alt="user photo" className="avatar"/></td> */}
          

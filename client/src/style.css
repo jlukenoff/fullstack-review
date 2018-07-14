@@ -8,8 +8,16 @@
   margin-left: 10%;
 }
 
+.reponame {
+  max-width: 15%;
+}
+
 td {
   margin: 5px;
   border: 1px solid gray;
   padding: 0.5rem;
+}
+
+.avatar {
+  height: 8%;
 }
