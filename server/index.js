@@ -16,7 +16,7 @@ app.post('/repos', function (req, res) {
     let data = JSON.parse(resp.body);
     if (data.message === 'Not Found') {
       res.writeHead(201);
-      res.end(data.message);
+      res.end('non-existent');
     }
     let results = [];
     for (let index = 0; index < data.length; index++) {
@@ -42,7 +42,6 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  console.log('request received');
   mongoose.get((err, docs) => {
     if (err) throw err;
     let results = docs.slice(0, 25);

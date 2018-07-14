@@ -18,7 +18,6 @@ class App extends React.Component {
   componentDidMount() {
     $.get('/repos', (resp) => {
       let response = JSON.parse(resp);
-      console.log(response);
       let newReps = this.state.repos;
       let newNames = this.state.repoNames;
       response.results.forEach(repo => newNames.push(repo.name));
@@ -35,16 +34,18 @@ class App extends React.Component {
     $.post('/repos', {
       term: term
     }, (resp) => {
+      if (resp === 'non-existent') {
+        return;
+      }
       resp = JSON.parse(resp);
       this.setState({repos: resp, repoCount: resp.length});
     });
   }
 
   render () {
-    console.log(this.state.repos);
     return (
     <div className='app'>
-      <h1>Github fetcher</h1>
+      <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos} count={this.state.repoCount}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
