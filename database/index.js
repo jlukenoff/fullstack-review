@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect(`${process.env.DATABASE_URI + '/fethcer' || 'mongodb://localhost:27017/fetcher'}`, { useMongoClient: true });
+mongoose.connect(`${process.env.MONGODB_URI + '/fethcer' || 'mongodb://localhost:27017/fetcher'}`, { useMongoClient: true });
 
 let repoSchema = mongoose.Schema({
   name: {type: String, unique: true},
