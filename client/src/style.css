@@ -1,0 +1,15 @@
+.app {
+  text-align: center;
+}
+#repo-table {
+  border: 1px solid gray;
+  padding: 0.5rem;
+  width: 80%;
+  margin-left: 10%;
+}
+
+td {
+  margin: 5px;
+  border: 1px solid gray;
+  padding: 0.5rem;
+}

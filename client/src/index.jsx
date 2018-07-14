@@ -42,7 +42,8 @@ class App extends React.Component {
 
   render () {
     console.log(this.state.repos);
-    return (<div>
+    return (
+    <div className='app'>
       <h1>Github fetcher</h1>
       <RepoList repos={this.state.repos} count={this.state.repoCount}/>
       <Search onSearch={this.search.bind(this)}/>
