@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    $.get('/repos', (resp) => {
+    $.get(process.env.URL, (resp) => {
       let results = JSON.parse(resp);
       let newReps = this.state.repos;
       let newNames = this.state.repoNames;
@@ -28,7 +28,7 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    $.post('/repos', {
+    $.post(process.env.URL, {
       term: term
     }, (resp) => {
       let newReps = this.state.repos;
