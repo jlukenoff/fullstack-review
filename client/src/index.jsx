@@ -12,7 +12,6 @@ class App extends React.Component {
       repos: [],
       repoNames: []
     }
-    this.url = process.env.URL
   }
 
   componentDidMount() {
