@@ -24,13 +24,16 @@ class App extends React.Component {
       this.setState({repos: [...newReps]});
     });
   }
-
+  
   search (term) {
     $.post('/repos', {
       term: term
     }, (resp) => {
       let newReps = this.state.repos;
+      /* TODO: filter duplicate names and sort
+                ..maybe abstract to helper func? */
       let results = JSON.parse(resp).filter(repo => this.state.repoNames.indexOf(repo.name) !== 0);
+      console.log(results);
       newReps.push(...results);
       this.setState({repos: newReps});
     });

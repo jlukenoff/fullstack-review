@@ -15,11 +15,11 @@ app.post('/repos', function (req, res) {
     if (err) throw err;
     let data = JSON.parse(resp.body);
     let results = [];
-    data.forEach((repo) => {
+    data.forEach((repo, index) => {
       mongoose.save(repo, (err, repo) => {
         if (err) throw err;
         results.push(repo._doc);
-        if (results.length === data.length) {
+        if (results.length === data.length || index === data.length - 1) {
           console.log('all repos saved to db');
           mongoose.get((err, docs) => {
             if (err) throw err;
