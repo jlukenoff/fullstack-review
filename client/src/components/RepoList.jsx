@@ -6,17 +6,17 @@ const RepoList = (props) => (
     <table id="repo-table">
       <tbody>
         <tr>
+          <th>Author</th>
           <th>Repo</th>
           <th>Forks</th>
-          <th>Author</th>
           <th>Description</th>
           <th>Branch</th>
         </tr>
       {props.repos.map(repo => (
         <tr key={repo.name}>
+          <td><img src={repo.avatar_url} alt="user photo" className="avatar"/><br/>{repo.owner}</td>
           <td className="reponame"><a href={repo.url}>{repo.name}</a></td>
           <td>{repo.forksCount}</td>
-          <td><img src={repo.avatar_url} alt="user photo" className="avatar"/><br/>{repo.owner}</td>
           <td>{repo.description || <i>No desciption provided</i>}</td>
           <td>{repo.defaultBranch}</td>
           {/* <td><img src={repo.avatar_url} alt="user photo" className="avatar"/></td> */}

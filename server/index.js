@@ -11,12 +11,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded' }));
 
 app.post('/repos', function (req, res) {
-  github(req.body.term, (err, resp, body) => {
+  github(req.body.term, (err, resp) => {
     if (err) throw err;
     let data = JSON.parse(resp.body);
-    console.log(data);
+    if (data.message === 'Not Found') {
+      res.writeHead(201);
+      res.end(data.message);
+    }
     let results = [];
-    // data.forEach((repo, index) => {
     for (let index = 0; index < data.length; index++) {
       let repo = data[index];
       //save all results not alreadt stored

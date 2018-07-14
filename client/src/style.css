@@ -1,11 +1,12 @@
 .app {
   text-align: center;
+  padding: 10%;
+  padding-top: 5%;
 }
 #repo-table {
   border: 1px solid gray;
   padding: 0.5rem;
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
 }
 
 .reponame {
@@ -20,4 +21,5 @@ td {
 
 .avatar {
   height: 8%;
+  border-radius: 50%;
 }
