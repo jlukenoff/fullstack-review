@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import UserSelect from './components/UserSelect.jsx';
+import _ from 'lodash';
 import './style.css';
 
 class App extends React.Component {
@@ -10,8 +12,10 @@ class App extends React.Component {
     super(props);
     this.state = { 
       repos: [],
-      repoNames: [],
-      repoCount: 0
+      users: [],
+      repoCount: 0,
+      newReps: 0,
+      selectedUser: false
     }
   }
 
@@ -19,16 +23,23 @@ class App extends React.Component {
     $.get('/repos', (resp) => {
       let response = JSON.parse(resp);
       let newReps = this.state.repos;
-      let newNames = this.state.repoNames;
-      response.results.forEach(repo => newNames.push(repo.name));
+      let users = this.state.users;
+      response.results.forEach(repo => users.push(repo.owner));
       newReps.push(...response.results);
       this.setState({
         repos: response.results,
         repoCount: response.count,
-        repoNames: newNames,
-        newReps: 0
+        users: _.uniq(users)
       });
     });
+  }
+
+  handleUserChange(user) {
+    if (user !== 'Display All') {
+      this.setState({ selectedUser: user });
+    } else {
+      this.setState({ selectedUser: false });
+    }
   }
   
   search (term) {
@@ -48,7 +59,8 @@ class App extends React.Component {
     return (
     <div className='app'>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps}/>
+      <UserSelect users={this.state.users} change={this.handleUserChange.bind(this)}/>
+      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps} user={this.state.selectedUser}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }

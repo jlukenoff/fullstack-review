@@ -14,6 +14,7 @@ app.post('/repos', function (req, res) {
   github(req.body.term, (err, resp) => {
     if (err) throw err;
     let data = JSON.parse(resp.body);
+    console.log(data);
     if (data.message === 'Not Found') {
       res.writeHead(201);
       res.end('non-existent');
