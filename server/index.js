@@ -21,19 +21,14 @@ app.post('/repos', function (req, res) {
     let results = [];
     for (let index = 0; index < data.length; index++) {
       let repo = data[index];
-      //save all results not alreadt stored
       mongoose.save(repo, (err, repo) => {
-        if (err) {
-          throw err;
-        }
+        if (err) throw err;
         results.push(repo._doc);
         if (index === data.length - 1) {
-          //get all repos in descending order of fork count
           mongoose.get((err, docs) => {
             if (err) throw err;
             res.writeHead(201);
-            // send results back to client
-            res.end(JSON.stringify(docs));
+            res.end(JSON.stringify({repos: docs, newReps: results.length}));
           });
         }
       });

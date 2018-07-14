@@ -19,14 +19,13 @@ const RepoList = (props) => (
           <td>{repo.forksCount}</td>
           <td>{repo.description || <i>No desciption provided</i>}</td>
           <td>{repo.defaultBranch}</td>
-          {/* <td><img src={repo.avatar_url} alt="user photo" className="avatar"/></td> */}
-         
         </tr>
       )
       )}
       </tbody>
     </table>
-    Showing {props.repos.length} of {props.count} repos.
+    <p>Showing {props.repos.length} of {props.count} repos.</p>
+    {props.new ? <p id="added-msg">{props.new} repos added. {props.count} repos updated</p> : null}
   </div>
 )
 

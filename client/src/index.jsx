@@ -25,7 +25,8 @@ class App extends React.Component {
       this.setState({
         repos: response.results,
         repoCount: response.count,
-        repoNames: newNames
+        repoNames: newNames,
+        newReps: 0
       });
     });
   }
@@ -38,7 +39,8 @@ class App extends React.Component {
         return;
       }
       resp = JSON.parse(resp);
-      this.setState({repos: resp, repoCount: resp.length});
+
+      this.setState({repos: resp.repos, repoCount: resp.repos.length, newReps: resp.newReps});
     });
   }
 
@@ -46,7 +48,7 @@ class App extends React.Component {
     return (
     <div className='app'>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos} count={this.state.repoCount}/>
+      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
