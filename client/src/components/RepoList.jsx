@@ -22,7 +22,7 @@ const RepoList = (props) => (
       )}
       </tbody>
     </table>
-    There are {props.repos.length} repos.
+    Showing {props.repos.length} of {props.count} repos.
   </div>
 )
 

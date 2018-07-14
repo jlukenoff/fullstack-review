@@ -14,22 +14,28 @@ app.post('/repos', function (req, res) {
   github(req.body.term, (err, resp, body) => {
     if (err) throw err;
     let data = JSON.parse(resp.body);
+    console.log(data);
     let results = [];
-    data.forEach((repo, index) => {
+    // data.forEach((repo, index) => {
+    for (let index = 0; index < data.length; index++) {
+      let repo = data[index];
+      //save all results not alreadt stored
       mongoose.save(repo, (err, repo) => {
-        if (err) throw err;
+        if (err) {
+          throw err;
+        }
         results.push(repo._doc);
-        if (results.length === data.length || index === data.length - 1) {
-          console.log('all repos saved to db');
+        if (index === data.length - 1) {
+          //get all repos in descending order of fork count
           mongoose.get((err, docs) => {
             if (err) throw err;
-            let results = docs.slice(0, 25);
             res.writeHead(201);
-            res.end(JSON.stringify(results));
+            // send results back to client
+            res.end(JSON.stringify(docs));
           });
         }
       });
-    });
+    };
   });
 });
 
@@ -39,7 +45,7 @@ app.get('/repos', function (req, res) {
     if (err) throw err;
     let results = docs.slice(0, 25);
     res.writeHead(200);
-    res.end(JSON.stringify(results));
+    res.end(JSON.stringify({results: results, count: docs.length}));
   });
 });
 
