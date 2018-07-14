@@ -8,7 +8,7 @@ let app = express();
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded'}));
+app.use(bodyParser.urlencoded({ type: 'application/x-www-form-urlencoded' }));
 
 app.post('/repos', function (req, res) {
   github(req.body.term, (err, resp, body) => {
@@ -34,6 +34,7 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
+  console.log('request received');
   mongoose.get((err, docs) => {
     if (err) throw err;
     let results = docs.slice(0, 25);
@@ -42,7 +43,7 @@ app.get('/repos', function (req, res) {
   });
 });
 
-let port = process.env.PORT || 1128;
+let port = process.env.PORT;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
