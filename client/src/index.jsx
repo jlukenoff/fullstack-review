@@ -16,7 +16,6 @@ class App extends React.Component {
 
   componentDidMount() {
     $.get('/repos', (resp) => {
-      debugger;
       let results = JSON.parse(resp);
       let newReps = this.state.repos;
       let newNames = this.state.repoNames;
