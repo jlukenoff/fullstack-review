@@ -14,7 +14,7 @@ class App extends React.Component {
     }
   }
 
-  /* componentDidMount() {
+  componentDidMount() {
     $.get('/repos', (resp) => {
       debugger;
       let results = JSON.parse(resp);
@@ -24,7 +24,7 @@ class App extends React.Component {
       newReps.push(...results);
       this.setState({repos: [...newReps]});
     });
-  } */
+  }
 
   search (term) {
     $.post('/repos', {
