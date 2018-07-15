@@ -15,7 +15,8 @@ class App extends React.Component {
       users: [],
       repoCount: 0,
       newReps: 0,
-      selectedUser: false
+      selectedUser: false,
+      friends: []
     }
   }
 
@@ -35,10 +36,15 @@ class App extends React.Component {
   }
 
   handleUserChange(user) {
-    if (user !== 'Display All') {
-      this.setState({ selectedUser: user });
+    if (user !== 'All users') {
+      //make request to server for contributors
+      $.get('/friends', {name: user}, (resp) => {
+        let friends = JSON.parse(resp);
+        this.setState({ selectedUser: user, friends: friends });
+      })
+        //on success setState
     } else {
-      this.setState({ selectedUser: false });
+      this.setState({ selectedUser: false, friends: [] });
     }
   }
   
@@ -50,8 +56,10 @@ class App extends React.Component {
         return;
       }
       resp = JSON.parse(resp);
+      let users = this.state.users;
+      users.push(term);
 
-      this.setState({repos: resp.repos, repoCount: resp.repos.length, newReps: resp.newReps});
+      this.setState({repos: resp.repos, repoCount: resp.repos.length, newReps: resp.newReps, users: users});
     });
   }
 
@@ -60,7 +68,7 @@ class App extends React.Component {
     <div className='app'>
       <h1>Github Fetcher</h1>
       <UserSelect users={this.state.users} change={this.handleUserChange.bind(this)}/>
-      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps} user={this.state.selectedUser}/>
+      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps} user={this.state.selectedUser} friends={this.state.friends}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Friends from './Friends.jsx';
 
 const RepoList = (props) => {
   let renderedCount = 0;  
@@ -6,7 +7,7 @@ const RepoList = (props) => {
   return (
     <div>
       <h4> Repo List Component </h4>
-      <table id="repo-table">
+      <table id="repo-table" className={props.friends.length > 0 ? 'profile-display': null}>
         <tbody>
           <tr>
             <th>Author</th>
@@ -24,7 +25,7 @@ const RepoList = (props) => {
         
         return ( 
         <tr key={repo.name}>
-            <td><img src={repo.avatar_url} alt="user photo" className="avatar"/><br/>{repo.owner}</td>
+            <td><a href={repo.owner_url}><img src={repo.avatar_url} alt="user photo" className="avatar"/></a><br/>{repo.owner}</td>
             <td className="reponame"><a href={repo.url}>{repo.name}</a></td>
             <td>{repo.forksCount}</td>
             <td>{repo.description || <i>No desciption provided</i>}</td>
@@ -35,8 +36,9 @@ const RepoList = (props) => {
         )}
         </tbody>
       </table>
+      {props.friends.length > 0 ? <Friends friends={props.friends} /> : null}
       <p>Showing {renderedCount} of {props.count} repos.</p>
-      {props.new ? <p id="added-msg">{props.new} repos added. {props.count} repos updated</p> : null}
+      {props.new ? <p id="added-msg">{props.new} new repos imported. {props.count} repos updated</p> : null}
     </div>
   )
 }

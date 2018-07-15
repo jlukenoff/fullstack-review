@@ -11,7 +11,21 @@ let getReposByUsername = (username, cb) => {
   };
 
   request(options, cb);
+}
 
+
+let getContributorsByReponame = (repoName, cb) => {
+  console.log(repoName);
+  let options = {
+    url: `https://api.github.com/repos/${repoName}/contributors`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `token ${token}`
+    }
+  };
+
+  request(options, cb);
 }
 
 module.exports.getReposByUsername = getReposByUsername;
+module.exports.getContributorsByReponame = getContributorsByReponame;

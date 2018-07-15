@@ -1,13 +1,24 @@
 .app {
   text-align: center;
   padding: 10%;
-  padding-top: 5%;
+  padding-top: 2%;
 }
+
 #repo-table {
   border: 1px solid gray;
   padding: 0.5rem;
   margin-bottom: 10px;
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.profile-display {
+  width: 75%;
+  float: right;
+}
+
+#friends {
+  float:left;
 }
 
 .reponame {
@@ -18,6 +29,10 @@ td, #added-msg {
   margin: 5px;
   border: 1px solid gray;
   padding: 0.5rem;
+}
+
+#added-msg {
+  border: none;
 }
 
 .avatar {
