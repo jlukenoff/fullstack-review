@@ -57,7 +57,7 @@ let get = (cb) => {
 }
 
 let getFriends = (user, cb) => {
-  Contrib.find({friend: user}).limit(10).exec(cb);
+  Contrib.find({friend: user}).limit(15).exec(cb);
 }
 
 module.exports.save = save;

@@ -68,8 +68,8 @@ class App extends React.Component {
     <div className='app'>
       <h1>Github Fetcher</h1>
       <UserSelect users={this.state.users} change={this.handleUserChange.bind(this)}/>
-      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps} user={this.state.selectedUser} friends={this.state.friends}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos} count={this.state.repoCount} new={this.state.newReps} user={this.state.selectedUser} friends={this.state.friends}/>
     </div>)
   }
 }

@@ -6,7 +6,11 @@ const RepoList = (props) => {
   
   return (
     <div>
-      <h4> Repo List Component </h4>
+      <div className="info">
+        <p>Showing {renderedCount} of {props.count} repos.</p>
+        {props.new ? <p id="added-msg">{props.new} new repos imported. {props.count} repos updated</p> : null}
+      </div>
+      {props.friends.length > 0 ? <Friends friends={props.friends} /> : null}
       <table id="repo-table" className={props.friends.length > 0 ? 'profile-display': null}>
         <tbody>
           <tr>
@@ -36,9 +40,6 @@ const RepoList = (props) => {
         )}
         </tbody>
       </table>
-      {props.friends.length > 0 ? <Friends friends={props.friends} /> : null}
-      <p>Showing {renderedCount} of {props.count} repos.</p>
-      {props.new ? <p id="added-msg">{props.new} new repos imported. {props.count} repos updated</p> : null}
     </div>
   )
 }

@@ -2,6 +2,7 @@
   text-align: center;
   padding: 10%;
   padding-top: 2%;
+  position: relative;
 }
 
 #repo-table {
@@ -19,6 +20,7 @@
 
 #friends {
   float:left;
+  position: absolute;
 }
 
 .reponame {
@@ -29,6 +31,13 @@ td, #added-msg {
   margin: 5px;
   border: 1px solid gray;
   padding: 0.5rem;
+}
+
+.friends-list-item:hover {
+  background-color: rgba(128, 128, 128, 0.57);
+}
+.friends-list-item {
+  text-decoration: none;
 }
 
 #added-msg {
